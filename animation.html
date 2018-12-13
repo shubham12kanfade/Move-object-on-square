@@ -1,0 +1,102 @@
+<html>
+
+<head>
+    <style>
+        #container{
+        height: 100px;
+        width: 100px;
+        outline: 2px solid red;
+        position: relative;
+        margin-left: 400px;
+        margin-top: 100px;
+        z-index: -1;
+    }
+    #guy
+    {
+        height: 5px;
+        width: 5px;
+        border-radius: 5px;
+        border: 2px solid goldenrod;
+        background-color: goldenrod;
+        position: relative;
+        z-index: 1;
+    }
+    </style>
+    <script>
+        window.onload = function () {
+            // right bottom corner 96x96
+            // left bottom corner 96x-5
+            // right top corner -5x96
+            // left top corner -5x-5
+            var smallSquare = document.getElementById("guy");
+            var rightToLeft = 96;
+            var topPoint = 96;
+            var Points = 500;
+            var speed =90;
+
+            // Initilize intervals
+            var startProgressInterval;
+            var startProgressIntervalTop;
+            var startProgressIntervalRight;
+            var startProgressIntervalBottom;
+
+            // call functions by applying interval
+            startProgressInterval = setInterval(startProgress, speed);
+
+            function startProgress() {
+                rightToLeft = rightToLeft-4;
+                smallSquare.style.left = rightToLeft;
+                smallSquare.style.top = topPoint;
+                if(rightToLeft==-4)
+                {
+                    clearInterval(startProgressInterval);
+                    startProgressIntervalTop = setInterval(startProgressTop, speed);
+
+                }
+            }
+
+            function startProgressTop() {
+                topPoint = topPoint-4;
+                smallSquare.style.left = rightToLeft;
+                smallSquare.style.top = topPoint;
+                if(topPoint==-4)
+                {
+                    clearInterval(startProgressIntervalTop);
+                    startProgressIntervalRight = setInterval(startProgressRight, speed);
+
+                }
+            }
+            function startProgressRight() {
+                rightToLeft = rightToLeft+4;
+                smallSquare.style.left = rightToLeft;
+                smallSquare.style.top = topPoint;
+                if(rightToLeft==96)
+                {
+                    console.log(rightToLeft);
+                    clearInterval(startProgressIntervalRight);
+                    startProgressIntervalBottom = setInterval(startProgressBottom, speed);
+
+                }
+            }
+            function startProgressBottom() {
+                topPoint = topPoint+4;
+                smallSquare.style.left = rightToLeft;
+                smallSquare.style.top = topPoint;
+                if(topPoint==96)
+                {
+                    clearInterval(startProgressIntervalBottom);
+                    startProgressInterval = setInterval(startProgress, speed);
+
+                }
+            }
+        }
+        </script>
+</head>
+
+<body>
+    <div id="container">
+        <div id="guy"></div>
+    </div>
+</body>
+
+</html>
